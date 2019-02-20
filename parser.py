@@ -1,5 +1,7 @@
 from twitter_specials import *
 
+labels = {"positive": 0, "negative": 1, "neutral": 2, "irrelevant": 3}
+
 
 # Remove # and ignore @
 def special(tweet):
@@ -35,7 +37,11 @@ def generate_set(data):
     tweets = open(data)
 
     for row in tweets:
-        arr = row.split("   ")
+        arr = row.rstrip().split("\t")
+
+        # If there is a formatting error in the tsv & a tweet has no label, move on
+        if arr[1] not in labels:
+            continue
 
         tweet = clean_tweet(arr[0], emo_repl_order, emo_repl, re_repl)
 
@@ -53,6 +59,8 @@ def generate_set(data):
     for (word, freq) in word_dict.items():
         if freq >= 2 and word != '':
             relevant_words.add(word)
+
+    tweets.close()
 
     return relevant_words
 
