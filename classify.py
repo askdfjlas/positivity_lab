@@ -1,5 +1,5 @@
 from naive_bayes import *
-from math import *
+import math
 import json
 
 label_array = ["positive", "negative", "neutral", "irrelevant"]
@@ -10,14 +10,14 @@ def classify(tweet, probs, total_counts):
     scores = [0, 0, 0, 0]
 
     for i in range(len(labels)):
-        scores[i] += log(total_counts[i])
+        scores[i] += math.log(total_counts[i], 2)
 
         for word in tweet.split():
             duplicates = set()
 
             if word in probs and word not in duplicates:
                 try:
-                    scores[i] += log(probs[word][i])
+                    scores[i] += math.log(probs[word][i], 2)
                 except:
                     pass
 

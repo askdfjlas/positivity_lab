@@ -52,5 +52,5 @@ if __name__ == "__main__":
     words = generate_set("data/labeled_corpus.tsv")
     probabilities, totals = create_counts(words, "data/labeled_corpus.tsv")
     convert(probabilities, totals)
-    print(probabilities)
+    print(probabilities["dien"])
     print(totals)

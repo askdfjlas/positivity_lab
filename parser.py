@@ -1,4 +1,5 @@
 from twitter_specials import *
+import re
 
 labels = {"positive": 0, "negative": 1, "neutral": 2, "irrelevant": 3}
 

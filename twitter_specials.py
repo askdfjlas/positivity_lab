@@ -58,4 +58,7 @@ def clean_tweet(tweet, emo_repl_order, emo_repl, re_repl ):
     for r, repl in re_repl.items():
         tweet = re.sub(r, repl, tweet)
 
+    tweet = re.sub("[!./,><?:;]", "", tweet)
+    tweet = re.sub("http\S+ ", "", tweet)
+
     return tweet
