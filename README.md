@@ -5,4 +5,4 @@ The assignment is described <a href="https://docs.google.com/document/d/19ScyNor
 
 The input datasets can be downloaded from <a href="https://drive.google.com/file/d/1Unf5fVhxy2HHetLASNSRBM-5mIz4UG2h/view?usp=sharing">here</a>.
 
-Store the input files in a folder called "/data". Running "classifier.py" will generate the data.js and locations_classified.tsv files.
+Store the input files in a folder called "/data". Running "classifier.py" will generate the data.js and locations_classified.tsv files. Ran using Python 2.7
