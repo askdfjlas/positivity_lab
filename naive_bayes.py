@@ -1,11 +1,10 @@
 from parser import *
 
-link = "data/labeled_corpus.tsv"
-
 
 # Create counts of each relevant word being in a category
 def create_counts(relevant_words, data):
     probs = {}
+    counts = [0, 0, 0, 0]
     tweets = open(data)
 
     for row in tweets:
@@ -28,27 +27,30 @@ def create_counts(relevant_words, data):
                 if label in labels:
                     probs[word][labels[label]] += 1
 
+        if label in labels:
+            counts[labels[label]] += 1
+
     tweets.close()
 
-    return probs
+    return probs, counts
 
 
 # Convert counts to probabilities
-def convert(probs):
+def convert(probs, total):
     for (word, counts) in probs.items():
-        total = sum(counts)
-
+        # Laplace correction, then divide by total count of label
         for i in range(len(counts)):
-            counts[i] = float(counts[i])/total
+            counts[i] = float(counts[i])/(total[i])
 
-
-def main():
-    relevant_words = generate_set(link)
-    probs = create_counts(relevant_words, link)
-    print(probs)
-    convert(probs)
-    print(probs)
+    # Convert totals to probabilities as well
+    total_counts = sum(total)
+    for i in range(len(total)):
+        total[i] /= float(total_counts)
 
 
 if __name__ == "__main__":
-    main()
+    words = generate_set("data/labeled_corpus.tsv")
+    probabilities, totals = create_counts(words, "data/labeled_corpus.tsv")
+    convert(probabilities, totals)
+    print(probabilities)
+    print(totals)
